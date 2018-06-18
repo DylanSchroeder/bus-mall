@@ -19,6 +19,15 @@ function showImages() {
   img3.currentProduct = image3;
 }
 
+//click event to have new product images show up
+var productImages = document.querySelectorAll('#voting img');
+for(var i = 0; i < productImages.length; i++) {
+  productImages[i].addEventListener('click', function (event){
+    console.log('click', event.target.currentProduct);
+    showImages();
+  } );
+}
+
 
 
 function Product(name, src) {
@@ -32,5 +41,9 @@ Product.all = [];
 new Product('R2-D2 Bag', 'img/bag.jpg');
 new Product('Meat Gum', 'img/bubblegum.jpg');
 new Product('InstaBreakfast', 'img/breakfast.jpg');
+new Product('Toilet iPad', 'img/bathroom.jpg');
+new Product('Cthulhu Action Figure', 'img/cthulhu.jpg');
+new Product('Pet Sweepers', 'img/pet-sweep.jpg');
+new Product('Unicorn Meat', 'img/unicorn.jpg');
 
 window.addEventListener('load', showImages);
