@@ -15,7 +15,7 @@ function showImages() {
 
   var image3 = Product.all[nextImage++];
   var img3 = document.getElementById('product-3');
-  img3.src = image1.src;
+  img3.src = image3.src;
   img3.currentProduct = image3;
 }
 
