@@ -19,7 +19,7 @@ function showImages() {
   img3.currentProduct = image3;
 }
 
-//click event to have new product images show up
+//click event to have new product images show up, erros after first click
 var productImages = document.querySelectorAll('#voting img');
 for(var i = 0; i < productImages.length; i++) {
   productImages[i].addEventListener('click', function (event){
