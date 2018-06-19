@@ -19,12 +19,12 @@ function showImages() {
   img1.src = image1.src;
   img1.currentProduct = image1;
 
-  var image2 = getNextImage;
+  var image2 = getNextImage();
   var img2 = document.getElementById('product-2');
   img2.src = image2.src;
   img2.currentProduct = image2;
 
-  var image3 = getNextImage;
+  var image3 = getNextImage();
   var img3 = document.getElementById('product-3');
   img3.src = image3.src;
   img3.currentProduct = image3;
