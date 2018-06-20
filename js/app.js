@@ -1,10 +1,39 @@
 /* globals Chart */
 'use strict';
 
+window.addEventListener('load', function onLoad() {
+  loadFromStorage();
+
+  if (Product.all.length === 0) {
+    initialize();
+  }
+  showImages();
+});
+
 //local storage stuff
 function saveAll() {
   localStorage['voteHistory'] = JSON.stringify({ voteCount: Product.voteCount});
   localStorage['products'] = JSON.stringify(Product.all);
+}
+
+function loadFromStorage() {
+  var jsonVoteHistoryString = localStorage['voteHistory'];
+  if (jsonVoteHistoryString) {
+    var voteHistory = JSON.parse(jsonVoteHistoryString);
+    Product.voteCount = voteHistory.voteCount;
+  }
+
+
+  var jsonStringFromStorage = localStorage['products'];
+  if (!jsonStringFromStorage)
+    return;
+
+  Product.all = [];
+  var arrayFromStorage = JSON.parse(jsonStringFromStorage);
+  for(var i = 0; i < arrayFromStorage.length; i++) {
+    var arrayItem = arrayFromStorage[i];
+    new Product(arrayItem.name, arrayItem.src, arrayItem.voteCount);
+  }
 }
 
 
@@ -15,12 +44,13 @@ function getNextImage() {
   return image;
 }
 
-var voteCount = 0;
 function showImages() {
-  if (voteCount >= 5) {
+  if (Product.voteCount >= 5) {
     showResults();
     return;
   }
+
+  document.getElementById('resultsWrapper').style.display = 'none';
 
   var image1 = getNextImage();
   var img1 = document.getElementById('product-1');
@@ -41,9 +71,11 @@ function showImages() {
 var productImages = document.querySelectorAll('#voting img');
 for(var i = 0; i < productImages.length; i++) {
   productImages[i].addEventListener('click', function (event){
-    voteCount++;
+    Product.voteCount++;
 
-    console.log('click #' + voteCount, event.target.currentProduct);
+    console.log('click #' + Product.voteCount, event.target.currentProduct);
+    event.target.currentProduct.voteCount ++;
+
     saveAll();
     showImages();
   } );
@@ -58,19 +90,25 @@ function Product(name, src, testVoteCount) {
 
   Product.all.push(this);
 }
-Product.all = [];
 
-new Product('R2-D2 Bag', 'img/bag.jpg', 2);
-new Product('Meat Gum', 'img/bubblegum.jpg', 4);
-new Product('InstaBreakfast', 'img/breakfast.jpg', 6);
-new Product('Toilet iPad', 'img/bathroom.jpg', 8);
-new Product('Cthulhu Action Figure', 'img/cthulhu.jpg', 1);
-new Product('Pet Sweepers', 'img/pet-sweep.jpg', 3);
-new Product('Unicorn Meat', 'img/unicorn.jpg', 5);
+function initialize() {
+  Product.voteCount = 0;
+  Product.all = [];
 
-window.addEventListener('load', showImages);
+
+  new Product('R2-D2 Bag', 'img/bag.jpg');
+  new Product('Meat Gum', 'img/bubblegum.jpg');
+  new Product('InstaBreakfast', 'img/breakfast.jpg');
+  new Product('Toilet iPad', 'img/bathroom.jpg');
+  new Product('Cthulhu Action Figure', 'img/cthulhu.jpg');
+  new Product('Pet Sweepers', 'img/pet-sweep.jpg');
+  new Product('Unicorn Meat', 'img/unicorn.jpg');
+
+  saveAll();
+}
 
 function showResults() {
+  document.getElementById('resultsWrapper').style.display = 'block';
   var ul = document.getElementById('results');
   ul.innerHTML = '';
 
