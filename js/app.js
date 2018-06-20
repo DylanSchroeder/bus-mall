@@ -13,7 +13,7 @@ function showImages() {
     showResults();
     return;
   }
-  //have image 1 show up on page
+
   var image1 = getNextImage();
   var img1 = document.getElementById('product-1');
   img1.src = image1.src;
@@ -30,7 +30,6 @@ function showImages() {
   img3.currentProduct = image3;
 }
 
-//click event to have new product images show up, erros after first click
 var productImages = document.querySelectorAll('#voting img');
 for(var i = 0; i < productImages.length; i++) {
   productImages[i].addEventListener('click', function (event){
@@ -72,4 +71,48 @@ function showResults() {
     li.textContent = current.name + ' got ' + current.voteCount + ' votes';
     ul.appendChild(li);
   }
+  displayResultChart();
+}
+
+function displayResultChart() {
+  var canvas = document.getElementById('voteResults');
+  canvas.style.display = 'block';
+
+  var labels = [];
+  var voteCounts = [];
+
+  for (var i = 0; i < Product.all.length; i++) {
+    labels[i] = Product.all[i].name;
+    voteCounts[i] = Product.all[i].voteCount;
+  }
+
+  var ctx = canvas.getContext('2d');
+  var chart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: 'Votes',
+          backgroundColor: 'rgb(66, 178, 135)',
+          data: voteCounts
+        }
+      ]
+    },
+
+    options: {
+      responsive: true,
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    },
+    title: {
+      display: true,
+      text: 'Your Voting Results!'
+    }
+  });
 }
