@@ -163,3 +163,9 @@ function displayResultChart() {
     }
   });
 }
+
+var resetButton = document.querySelector('button[type="reset"]');
+resetButton.addEventListener('click', function voteReset(event) {
+  initialize();
+  showImages();
+});
