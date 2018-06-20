@@ -1,4 +1,12 @@
+/* globals Chart */
 'use strict';
+
+//local storage stuff
+function saveAll() {
+  localStorage['voteHistory'] = JSON.stringify({ voteCount: Product.voteCount});
+  localStorage['products'] = JSON.stringify(Product.all);
+}
+
 
 function getNextImage() {
   var nextIndex = Math.floor(Math.random() * Product.all.length);
@@ -36,6 +44,7 @@ for(var i = 0; i < productImages.length; i++) {
     voteCount++;
 
     console.log('click #' + voteCount, event.target.currentProduct);
+    saveAll();
     showImages();
   } );
 }
