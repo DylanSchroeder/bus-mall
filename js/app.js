@@ -53,16 +53,19 @@ function showImages() {
   document.getElementById('resultsWrapper').style.display = 'none';
 
   var image1 = getNextImage();
+  image1.showCount++;
   var img1 = document.getElementById('product-1');
   img1.src = image1.src;
   img1.currentProduct = image1;
 
   var image2 = getNextImage();
+  image2.showCount++;
   var img2 = document.getElementById('product-2');
   img2.src = image2.src;
   img2.currentProduct = image2;
 
   var image3 = getNextImage();
+  image3.showCount++;
   var img3 = document.getElementById('product-3');
   img3.src = image3.src;
   img3.currentProduct = image3;
@@ -83,10 +86,11 @@ for(var i = 0; i < productImages.length; i++) {
 
 
 
-function Product(name, src, testVoteCount) {
+function Product(name, src, testVoteCount, testShowCount) {
   this.name = name;
   this.src= src;
   this.voteCount = testVoteCount || 0;
+  this.showCount = testShowCount || 0;
 
   Product.all.push(this);
 }
@@ -115,7 +119,7 @@ function showResults() {
   for(var i = 0; i < Product.all.length; i++) {
     var current = Product.all[i];
     var li = document.createElement('li');
-    li.textContent = current.name + ' got ' + current.voteCount + ' votes';
+    li.textContent = current.name + ' got ' + current.voteCount + ' votes and was shown ' + current.showCount + ' times.';
     ul.appendChild(li);
   }
   displayResultChart();
@@ -127,10 +131,12 @@ function displayResultChart() {
 
   var labels = [];
   var voteCounts = [];
+  var showCounts = [];
 
   for (var i = 0; i < Product.all.length; i++) {
     labels[i] = Product.all[i].name;
     voteCounts[i] = Product.all[i].voteCount;
+    showCounts[i] = Product.all[i].showCount;
   }
 
   var ctx = canvas.getContext('2d');
@@ -143,6 +149,11 @@ function displayResultChart() {
           label: 'Votes',
           backgroundColor: 'rgb(66, 178, 135)',
           data: voteCounts
+        },
+        {
+          label: 'Show Count',
+          backgroundColor: 'rgb(151, 160, 49)',
+          data: showCounts
         }
       ]
     },
