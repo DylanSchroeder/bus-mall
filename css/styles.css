@@ -2,8 +2,60 @@ body {
   background-color: #C0CAAD
 }
 
+header {
+  width: 100%;
+  background-color: #3b3d2b;
+  color: white;
+  text-align: center;
+}
+
+section .voting {
+  float: left;
+}
+
+ol {
+  text-align: center;
+  border-bottom: 5px solid black;
+}
+
+li {
+  display: inline-block;
+  padding: 20px;
+}
+
+section h2 {
+  text-align: center;
+  border-top: 5px solid black;
+}
+
+section p {
+  text-align: center;
+}
+
+
+section .resultsWrapper {
+  clear: both;
+  overflow: hidden;
+  display: inline-block;
+}
+
+article {
+  display: inline-block;
+}
+
+article p {
+  text-align: center;
+}
+
 img {
   max-height: 150px;
   max-width: 150px;
+}
+
+footer {
+  position: relative;
+  bottom: 0;
+  left: 0;
+  text-align: center;
 }
 
