@@ -45,7 +45,7 @@ function getNextImage() {
 }
 
 function showImages() {
-  if (Product.voteCount >= 5) {
+  if (Product.voteCount >= 25) {
     showResults();
     return;
   }
